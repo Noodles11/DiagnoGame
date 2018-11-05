@@ -1,0 +1,36 @@
+﻿<?php
+	$powt = 4;
+	$polecenie = 'Oblicz ile myszek złapali Jacuch i Tunia';
+	$dobrze = "'Znakomicie!'";
+	$odpowiedzi = array(
+		1 => '4',
+		4 => '3',
+		2 => '5',
+		3 => '1'
+	);
+	$poprawna = $_SESSION['cw'.$_GET['cw']]['bylo'];
+	$pkt = 10;
+?>
+
+<!--<style>
+body {
+	background: rgb(231,252,238);
+}
+</style>-->
+
+<p class="dymek">
+Kotka Tunia zaprosiła nas na wspólne polowanie. Udało nam się złapać kilka myszek.
+</p>
+
+<?php
+	$i = $_SESSION['cw'.$_GET['cw']]['bylo'];
+	if( $i==1 ){
+		echo '<img src="img/kot/myszy1.gif" />';
+	} else if( $i==2 ) {
+		echo '<img src="img/kot/myszy2.gif" />';
+	} else if( $i==3 ) {
+		echo '<img src="img/kot/myszy3.gif" />';
+	} else if( $i==4 ) {
+		echo '<img src="img/kot/myszy4.gif" />';
+	}
+?>

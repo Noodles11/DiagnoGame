@@ -1,0 +1,77 @@
+﻿<?php
+	$powt = 4;
+	$polecenie = 'Wybierz kolor tabliczki, na której napisane jest "DOM"';
+	$dobrze = "'Bardzo dobrze!'";
+	$odpowiedzi = array(
+		0 => 'niebieski',
+		1 => 'zielony',
+		2 => 'pomarańczowy',
+		3 => 'czerwony'
+	);
+	
+	$pkt = 10;
+
+	$wyrazy = ['dom','szkoła','plac zabaw','sklep'];
+
+	$nr = array(0,1,2,3);
+	shuffle( $nr );
+	$n = 0;
+	foreach( $nr as $i ){
+		$slowa[$n] = $wyrazy[$i];
+		if( $i==0 ){ $poprawna = $n; }
+		$n++;
+	}
+	
+?>
+
+<style>
+#zad {
+	width:100%;
+	height: 450px;
+	position: relative;
+}
+#zad img#kot {
+	position: absolute;
+	bottom: 0;
+	right:0;
+}
+div.znak {
+	float: left;
+	clear: both;
+	margin-left: 100px;
+	position: relative;
+}
+div.znak span {
+	position: absolute;
+	top:25px;
+	left: 40px;
+	text-transform: uppercase;
+	font-weight: bold;
+}
+</style>
+
+<div id="zad">
+<p class="dymek">
+W tym ręczniku wyglądam jak superbohater! Ale wciąż potrzebuję Twojej pomocy, żeby wrócić do domu.
+</p>
+
+
+<div class="znak">
+	<img src="img/kot/znak1.gif" />
+	<span><?php echo $slowa[0]; ?></span>
+</div>
+<div class="znak">
+	<img src="img/kot/znak2.gif" />
+	<span><?php echo $slowa[1]; ?></span>
+</div>
+<div class="znak">
+	<img src="img/kot/znak3.gif" />
+	<span><?php echo $slowa[2]; ?></span>
+</div>
+<div class="znak">
+	<img src="img/kot/znak4.gif" />
+	<span><?php echo $slowa[3]; ?></span>
+</div>
+
+<img id="kot" src="img/kot/hero.jpg" style="max-height:200px;" />
+</div>

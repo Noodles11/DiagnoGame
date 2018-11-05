@@ -1,0 +1,52 @@
+﻿<?php
+	$powt = 3;
+	$polecenie = 'Co to za kształt?';
+	$dobrze = "'Znakomicie!'";
+	$odpowiedzi = array(
+		1 => 'koło',
+		3 => 'kwadrat',
+		2 => 'trójkąt'
+	);
+	
+	$pkt = 10;
+
+	$kszt = $_SESSION['cw'.$_GET['cw']]['bylo'];
+
+	switch( $kszt ){
+		case 1:
+			$img = 'kolo'; break;
+		case 3:
+			$img = 'kwadrat'; break;
+		case 2:
+			$img = 'trojkat'; break;
+	}
+	$poprawna = $kszt;
+?>
+
+<?php echo'
+<style>
+#obr {
+	position: absolute;
+	top: 100px;
+	left: 350px;
+	height: 297px;
+	width: 297px;
+	background: url("img/kot/z_'.$img.'.gif") no-repeat top left;
+}
+#zad {
+	width:100%;
+	height: 350px;
+	position: relative;
+}
+</style>
+';?>
+
+<div id="zad">
+<p class="dymek">
+- Pora wstawać! Woła tata Jacucha. - Jutro masz ważny sprawdzian w szkole. Sprawdźmy czy umiesz już rozpoznawać kształty.
+</p>
+<span id="tabl">
+</span>
+<img src="img/kot/ksztalty.jpg" />
+<div id="obr"></div>
+</div>

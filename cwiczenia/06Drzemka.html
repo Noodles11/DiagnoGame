@@ -1,0 +1,94 @@
+﻿<?php
+	$powt = 4;
+	$polecenie = 'Pomóż rozwiązać równanie widoczne na tablicy';
+	$dobrze = "'Dobrze!'";
+	
+	$pkt = 10;
+
+	$l1 = rand(1,9);
+	$l2 = rand(1,6);
+	if( $_SESSION['cw'.$_GET['cw']]['bylo']%2 == 1 ){
+		$znak = false;
+	} else {
+		$znak = true;
+	}
+	if( $znak ){
+		$suma = $l1 + $l2;
+	} else {
+		if( $l1 >= $l2 ){
+			$suma = $l1 - $l2;
+		} else {
+			$suma = $l2 - $l1;
+		}
+	}
+
+	$arr = array();
+	for( $i=0; $i<3; $i++ ){
+		$arr[] = rand(1,10);
+	}
+	$dalej = false;
+	while( !$dalej ){
+		foreach( $arr as $a ){
+			foreach( $arr as $key => $b ){
+				if( $b==$a || $b==$suma ){
+					$dalej = false;
+					$arr[$key] = rand(1,10);
+				} else {
+					$dalej = true;
+				}
+			}
+		}
+	}
+	$arr[] = $suma;
+
+	$nr = array(0,1,2,3); shuffle($nr); $i = 0;
+	foreach( $nr as $n ){
+		$odp[$i] = $arr[$n];
+		if( $n==3 ){ $poprawna = $i; }
+		$i++;
+	}
+
+	$odpowiedzi = array(
+		0 => $odp[0],
+		1 => $odp[1],
+		2 => $odp[2],
+		3 => $odp[3]
+	);
+
+?>
+
+<style>
+#obr {
+	position: absolute;
+	right:0px;
+	bottom:-40px;
+	height: 200px;
+	width: 250px;
+	background: url("img/kot/sleep.gif") no-repeat top left;
+}
+#tabl{
+	color: white;
+	font-size: 40px;
+	position: absolute;
+	top:60px;
+	left: 250px;
+}
+#zad {
+	width:100%;
+	height: 350px;
+	position: relative;
+}
+</style>
+
+<p class="dymek">
+Skoro rodzinka jest już w komplecie można spać spokojnie. Małemu Jacuchowi śni się, że jest w szkole.
+</p>
+<div id="zad">
+<span id="tabl">
+<?php
+	echo ($l1>$l2 ? $l1 : $l2).($znak ? ' + ' : ' - ').($l1>$l2 ? $l2 : $l1).' = ?';
+?>
+</span>
+<img src="img/kot/szkola.jpg" />
+<div id="obr"></div>
+</div>

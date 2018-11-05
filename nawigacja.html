@@ -1,0 +1,10 @@
+<ul id="nawigacja" class="noselect">
+	<li class="nright"><a href="index.php">powrót do MENU</a></li>
+	<!-- <li class="separator">|</li>
+	<li><a href="index.php?page=cwiczenia">ćwiczenia</a></li> -->
+	<?php 
+		if( isset($_GET['cw']) && $_GET['cw']!=0 ){
+			echo'<li class="nleft"><a href="index.php?cw='.($_GET['cw']-1).'">poprzednie ćwiczenie</a></li>';
+		} 
+	?>
+</ul>

@@ -1,0 +1,23 @@
+<?php
+	if( isset($_GET['gracz']) ){
+
+		session_unset();
+		session_destroy();
+		session_start();
+
+		$_SESSION['id'] = date('dmY-his');
+		$_SESSION['userid'] = $_GET['gracz'];
+		$gracz = $baza->getGracz( $_GET['gracz'] );
+		$_SESSION['user'] = $gracz['gracz'];
+		header('Location: index.php');
+
+	} else {
+
+		$lista = $baza->getListaGraczy();
+		echo '<ol id="listaGraczy">';
+			foreach( $lista as $nr => $el ){
+				echo '<li><a href="index.php?page=load&gracz='.$nr.'">'.$el.'</a></li>';
+			}
+		echo '</ol>';
+	}
+?>

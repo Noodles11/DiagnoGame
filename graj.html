@@ -1,0 +1,131 @@
+﻿<link rel="stylesheet" href="./cwiczenia.css" type="text/css" />
+
+<?php
+	if( isset($_POST['pkt']) && isset($_POST['cw']) ){
+		$baza->dodajPunkty($_SESSION['user'],$_POST['cw'],$_POST['pkt']);
+	}
+
+	foreach( array('1','2','3','4','5','6','7','8','9','10') as $el ){
+		if( $el != $_GET['cw'] ){
+			unset($_SESSION['cw'.$el]['bylo']);
+		}
+	}
+
+	if( !isset($_SESSION['cw'.$_GET['cw']]['bylo']) ){
+		$_SESSION['cw'.$_GET['cw']]['bylo'] = 1;
+	} else {
+		$_SESSION['cw'.$_GET['cw']]['bylo'] ++;
+	}
+
+	$_SESSION['dir'] = 'cwiczenia/'.$_SESSION['listaCw'][$_GET['cw']];
+	if( !isset($_SESSION['listaCw'][$_GET['cw']]) ){
+		header('Location: index.php?page=stats');
+	} else if( !file_exists($_SESSION['dir']) ){
+		header('Location: index.php?page=cwiczenia');
+	}
+?>
+
+<div id="obrazek">
+	<?php 
+		include $_SESSION['dir']; 
+
+		//echo 'wywołanie ćwiczenia: '.$_SESSION['cw'.$_GET['cw']]['bylo'].' / '.(isset($powt) ? $powt : 1 );
+
+		if( (isset($powt) && $_SESSION['cw'.$_GET['cw']]['bylo'] >= $powt)){
+			echo '<script>var submit = true;</script>';
+		} else if( !isset($powt) && $_SESSION['cw'.$_GET['cw']]['bylo'] >= 0 ){
+			echo '<script>var submit = true;</script>';
+		} else {
+			echo '<script>var submit = false;</script>';
+		}
+	?>
+</div>
+
+<?php
+	if( isset($polecenie) && $polecenie!='' ){
+
+		if( !isset($_SESSION['pkt']) || $_SESSION['pkt']==-1 ){
+			$_SESSION['pkt'] = $pkt;
+		}
+
+		echo('<script>
+			var punkty = '.$pkt.';
+		</script>');
+
+		echo '<div id="zadanie">';
+			echo '<span>'.$polecenie.'</span>';
+			echo '<ul class="odpowiedzi">';
+			echo '<form id="sendForm" action="index.php?cw='.($_GET['cw']+1).'" method="post">
+						<input id="punktyinp" type="hidden" name="pkt" value="0"/>
+						<input type="hidden" name="cw" value="'.$_GET['cw'].'"/>
+					</form>';
+			foreach( $odpowiedzi as $i => $odp ){
+				if( $i == $poprawna ){
+					echo '<a class="noselect" onclick="good('.$dobrze.')"><li>'.$odp.'</li></a>';
+				} else {
+					echo '<a class="noselect" onclick="wrong()"><li>'.$odp.'</li></a>';
+				}
+			}
+			echo '</ul>';
+		echo '</div>';
+	}
+
+echo "<script>
+
+	var audio1 = new Audio();
+	audio1.src = './error2.ogg';
+
+	var audio2 = new Audio();
+	audio2.src = './tada.ogg';
+
+	function wrong(){
+
+		// System.playSound('sound_zle');
+
+		audio1.play();
+
+		var popup = document.createElement('div');
+		popup.id = 'feedback_popup';
+				popup.innerHTML = '<div>Spróbuj jeszcze raz</div>';
+		popup.style.opacity = '0';
+		popup.style.backgroundColor = 'rgba(255, 40, 89, 1)';
+		$('#zadanie')[0].appendChild( popup );
+
+		$('#feedback_popup').animate({opacity:'1'},50);
+		setTimeout(function(){
+			$('#feedback_popup').animate({opacity:'0'},500,function(){
+				if( punkty > 0 ){ punkty--; }
+				$('#zadanie')[0].removeChild( popup );
+			});
+		}.bind(this),1000);
+	}
+
+	function good( txt ){
+
+		// System.playSound('sound_brawo');
+		audio2.play();
+
+		var popup = document.createElement('div');
+		popup.id = 'feedback_popup';
+		if( txt ){
+			popup.innerHTML = '<div>'+txt+'</div>';
+		} else {
+			popup.innerHTML = '<div>Bardzo dobrze!</div>';
+		}
+		popup.style.opacity = '0';
+		popup.style.backgroundColor = 'rgba(40,180,70, 1)';
+		$('#zadanie')[0].appendChild( popup );
+
+		$('#feedback_popup').animate({opacity:'1'},50);
+		setTimeout(function(){
+			if( !submit ){
+				window.location.assign('index.php?cw=".$_GET['cw']."');
+			} else {
+				$('#punktyinp')[0].value = punkty;
+				$('#sendForm').submit();
+			}
+		}.bind(this),1500);
+	}
+
+	</script>";
+?>

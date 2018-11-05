@@ -1,0 +1,82 @@
+﻿<?php
+	$powt = 6;
+	$polecenie = 'Wybierz szafkę z prawidłowo zapisanym wyrazem';
+	$dobrze = "'Bardzo dobrze!'";
+	$odpowiedzi = array(
+		0 => 'zielona',
+		1 => 'czerwona',
+		2 => 'niebieska'
+	);
+	
+	$pkt = 10;
+	$los = $_SESSION['cw'.$_GET['cw']]['bylo'];
+	
+	if( $los==1 ){
+		$slowa = ['żołnież','rzołnierz','żołnierz'];
+		$poprawna = 2;
+	} else if( $los==2 ){
+		$slowa = ['łużko','łóżko','łórzko'];
+		$poprawna = 1;
+	} else if( $los==3 ){
+		$slowa = ['pióro','piuro','pjuro'];
+		$poprawna = 0;
+	} else if( $los==4 ){
+		$slowa = ['chrząszcz','chżąszcz','chsząszcz'];
+		$poprawna = 0;
+	} else if( $los==5 ){
+		$slowa = ['księrzyc','księżyc','ksienżyc'];
+		$poprawna = 1;
+	} else if( $los==6 ){
+		$slowa = ['róża','ruża','rórza'];
+		$poprawna = 0;
+	}
+	
+?>
+
+<style>
+#zad {
+	width:100%;
+	height: 450px;
+	position: relative;
+}
+#kot {
+	position: absolute;
+	bottom: 0px;
+}
+.szafka {
+	margin-right: 10px;
+	float: left;
+	width: 150px;
+	height: 150px;
+}
+.szafka img {
+	margin-bottom: 10px;
+}
+.szafka span {
+	font-size: 17px;
+	text-transform: uppercase;
+	font-weight: bold;
+	letter-spacing: 1px;
+}
+</style>
+
+<div id="zad">
+<p class="dymek">
+Łowienie ryb strasznie przemoczyło moje futerko. Ręcznik jest w szafce, która jest podpisana dobrze zapisanym wyrazem.
+</p>
+
+<div class="szafka">
+	<img src="img/kot/szafka1.gif" />
+	<span><?php echo $slowa[0]; ?></span>
+</div>
+<div class="szafka">
+	<img src="img/kot/szafka2.gif" />
+	<span><?php echo $slowa[1]; ?></span>
+</div>
+<div class="szafka">
+	<img src="img/kot/szafka3.gif" />
+	<span><?php echo $slowa[2]; ?></span>
+</div>
+
+<img id="kot" src="img/kot/mokry.gif" style="max-height:140px;"/>
+</div>

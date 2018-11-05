@@ -1,0 +1,26 @@
+<span class="title">Lista ćwiczeń</span>
+
+<?php
+	echo '<ol id="listaCwiczen">';
+	echo '<div id="pasek_left"></div>';
+	foreach( $lista as $li ){
+		if( !is_dir($li) && substr($li, 0, 1)!='.' && substr($li, 2, 1)!='.' ){
+			$nr = intval(substr($li, 0, 2 ));
+			// $cwiczenie = opendir($katalog . '/' . $li);
+
+			// echo '<li><a href="index.php?cw='.$nr.'">'.substr($li, 2 );
+			echo '<li><a href="index.php?cw='.$nr.'">'.substr($li, 2, sizeof($li)-6 );
+			// while($cw = readdir($cwiczenie)){
+			// 	$odczyt = pathinfo($katalog . '/' . $cw);
+
+			// 	if( $odczyt['extension']!='' ){
+			// 		var_dump($odczyt['filename']);
+			// 	}
+			// }
+			echo '</a></li>';
+		}
+	}
+	echo '</ol></br>';
+
+	// closedir($folder);
+?>

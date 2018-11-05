@@ -1,0 +1,37 @@
+<?php 
+	if( isset($_POST['pkt']) && isset($_POST['cw']) ){
+		$baza->dodajPunkty($_SESSION['user'],$_POST['cw'],$_POST['pkt']);
+	}
+
+	$staty = $baza->getGracz( $_SESSION['userid'] );
+	unset($staty['id']);
+	unset($staty['gracz']);
+
+	echo '<table>';
+	echo '<tr><td class="def">numer ćwiczenia</td>';
+	for( $i=1; $i<11; $i++ ){
+		echo '<td>'.$i.'.</td>';
+	}
+	echo '<td class="def">suma pkt</td>';
+	echo '</tr><tr>';
+	echo '<td class="def">punkty</td>';
+	$suma = 0;
+	foreach( $staty as $key => $el ){
+		//echo '<td>'.$i.'</td>';
+		echo '<td>'.$el.'</td>';
+		$suma += $el;
+	}
+	echo '<td>'.$suma.'</td>';
+	echo '</tr></table>';
+?>
+
+<div id="achievements">
+	<!-- <span>osiągnięcia</span> -->
+	<img src='img/kot/finish.jpg' alt="osiągnięcia" />
+</div>
+
+<style>
+	body {
+		background: rgb(229,232,241);
+	}
+</style>

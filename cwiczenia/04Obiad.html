@@ -1,0 +1,168 @@
+﻿<?php
+	$polecenie = 'Spośród obrazków wybierz jadalne rzeczy';
+	$dobrze = "'Mniam! Bardzo dobrze!'";
+	$odpowiedzi = array(
+		'ok' => 'ok'
+	);
+	$poprawna = 'ok';
+	$pkt = 10;
+?>
+
+<style>
+#maska {
+	width: 100%;
+	height: inherit;
+	background: white;
+	position: fixed;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	height: 70px;
+	z-index: 100;
+}
+
+#zad {
+	width:100%;
+	height: 350px;
+	position: relative;
+}
+#zad > div {
+	position: absolute;
+	border: 2px solid transparent;
+	opacity: 0.5;
+}
+#zad > div:hover {
+	opacity: 1;
+}
+
+.selected {
+	border: 2px solid red !important;
+	opacity: 1 !important;
+}
+/*--------------------------------------------*/
+#pizza {
+	background: url('img/kot/pizza.gif') no-repeat top left;
+	top: 120px;
+	left: 50px;
+	width:75px;
+	height:86px;
+}
+#kapelusz {
+	background: url('img/kot/kapelusz.gif') no-repeat top left;
+	top: 10px;
+	right: 35px;
+	width:148px;
+	height:84px;
+}
+#walek {
+	background: url('img/kot/walek.gif') no-repeat top left;
+	top: 40px;
+	left: 100px;
+	width:139px;
+	height:75px;
+}
+#wiatrak {
+	background: url('img/kot/wiatrak.gif') no-repeat top left;
+	bottom: 40px;
+	right: 35px;
+	width:96px;
+	height:165px;
+}
+#gitara {
+	background: url('img/kot/gitara.gif') no-repeat top left;
+	top: 120px;
+	left: 170px;
+	width:117px;
+	height:110px;
+}
+#pomidor {
+	background: url('img/kot/pomidor.gif') no-repeat top left;
+	top: 20px;
+	left: 290px;
+	width:73px;
+	height:71px;
+}
+#ser {
+	background: url('img/kot/ser.gif') no-repeat top left;
+	top: 50px;
+	right: 230px;
+	width:94px;
+	height:82px;
+}
+#tort {
+	background: url('img/kot/tort.gif') no-repeat top left;
+	bottom: 20px;
+	right: 200px;
+	width:140px;
+	height:133px;
+}
+#obiad {
+	background: url('img/kot/obiad.gif') no-repeat top left;
+	bottom: 20px;
+	left: 150px;
+	width:152px;
+	height:61px;
+}
+</style>
+
+<p class="dymek">
+Łapanie myszy jest męczące. W moim brzuszku już dawno burczy. Mam ochotę coś przekąsić.
+</p>
+<div id="zad">
+<img src="img/kot/amu_bg.jpg" />
+<div id="pizza" ok="true"></div>
+<div id="kapelusz"></div>
+<div id="walek"></div>
+<div id="pomidor" ok="true"></div>
+<div id="gitara"></div>
+<div id="obiad" ok="true"></div>
+<div id="ser" ok="true"></div>
+<div id="tort" ok="true"></div>
+<div id="wiatrak"></div>
+</div>
+
+<div id="maska">&nbsp;</div>
+
+<script>
+	var arr = ['pizza','pomidor','obiad','ser','tort'];
+
+	$('#zad > div').each(function( i, el ){
+		el.addEventListener('click',function( e ){
+			if( this.className!= 'selected' ){
+				this.className = 'selected';
+			} else {
+				this.className = '';
+			}
+
+			check();
+		},false);
+	}.bind(this));
+
+	function check(){	
+
+		var tak = 0;
+		var nie = 0;
+
+		$('#zad > div.selected').each(function( i, amu ){
+			if( amu.getAttribute('ok')=='true' ){
+				tak++;
+			} else {
+				nie++;
+			}
+			// var ok = 0;
+			// arr.each(function( ind, el ){
+			// 	if( $('#'+el).className == 'selected' ){
+			// 		ok++;
+			// 	} else {
+			// 		return false;
+			// 	}
+			// }.bind(this));
+		}.bind(this));
+
+		if( tak == 5 && nie == 0 ){
+			$('#maska').hide();
+		} else {
+			$('#maska').show();
+		}
+	}
+</script>

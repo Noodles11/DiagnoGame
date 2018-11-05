@@ -1,0 +1,37 @@
+﻿<?php
+	$powt = 4;
+	$polecenie = 'Który kot ma więcej balonów';
+	$dobrze = "'Wspaniale się spisałeś!'";
+	$odpowiedzi = array(
+		'l' => 'lewy',
+		'p' => 'prawy'
+	);
+	$pkt = 10;
+?>
+
+<!--<style>
+body {
+	background: rgb(231,252,238);
+}
+</style>-->
+
+<p class="dymek">
+Razem z Kudłatym bawimy się balonami.
+</p>
+
+<?php
+	$i = $_SESSION['cw'.$_GET['cw']]['bylo'];
+	if( $i==1 ){
+		echo '<img src="img/kot/balony1.gif" />';
+		$poprawna = 'l';
+	} else if( $i==2 ) {
+		echo '<img src="img/kot/balony2.gif" />';
+		$poprawna = 'p';
+	} else if( $i==3 ) {
+		echo '<img src="img/kot/balony3.gif" />';
+		$poprawna = 'p';
+	} else if( $i==4 ) {
+		echo '<img src="img/kot/balony4.gif" />';
+		$poprawna = 'l';
+	}
+?>

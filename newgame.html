@@ -1,0 +1,33 @@
+<div id="newuser">
+	<img src="img/kot/foto_user.png" />
+<?php
+	if( isset($_POST['session']) ){
+
+		$id = $baza->setNewGracz( $_POST['imie'] );
+
+		session_unset();
+		session_destroy();
+		session_start();
+		
+		$_SESSION['id'] = $_POST['session'];
+		$_SESSION['user'] = $_POST['imie'];		
+		$_SESSION['userid'] = $id;
+		header('Location: index.php');
+	} else {
+		//echo '</br><a href="index.php?page=new&id='.date('dmY-his').'">utwórz nową sesję</a>';
+		echo '
+			<form action="index.php?page=new" method="post">
+				<ul id="newForm">
+					<li><div class="label">imię:</div><input id="tytul" type="text" name="imie" /></li>
+					<li style="display:none;"><div class="label">id-sesji:</div><input id="tytul" type="password" name="session" value="'.date('dmY-his').'" /></li>
+				    <li><input id="btn_submit" type="submit" name="submit" value="stwórz gracza" /></li>
+				</ul>
+			</form>
+		';
+	}
+?>
+</div>
+
+<script>
+$('#tytul').focus();
+</script>

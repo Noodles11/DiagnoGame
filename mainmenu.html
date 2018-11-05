@@ -1,0 +1,41 @@
+<?php
+	if( isset($_SESSION) ){
+		foreach( array('1','2','3','4','5','6','7','8','9','10') as $el ){
+			unset($_SESSION['cw'.$el]['bylo']);
+		}
+	}
+?>
+
+<span id="welcome">
+<!-- Ucz i baw się z Jacuchem! -->
+</span>
+
+<ul id="mainmenu" class="noselect">
+	<?php 
+		if( isset($_SESSION['userid']) ){
+			echo '<a href="index.php?cw=0"><li class="pozmenu logged pozBig">rozpocznij grę</li></a>';
+			echo '<a href="index.php?page=cwiczenia"><li class="pozmenu logged">lista ćwiczeń</li></a>';
+			echo '<a href="index.php?page=stats"><li class="pozmenu logged">osiągnięcia</li></a>';
+			
+			echo '<li class="blankLi"></li>';
+		}
+	?>
+	<a href="index.php?page=new"><li class="pozmenu">nowy gracz</li></a>
+	<a href="index.php?page=load"><li class="pozmenu">
+		<?php if( isset($_SESSION['userid']) ){ 
+			echo 'zmień gracza'; 
+		} else {
+			echo 'wczytaj gracza';
+		} ?>
+	</li></a>
+	<a href="index.php?page=about"><li class="pozmenu">o grze</li></a>
+	<!-- <a href="index.php?page=credits"><li class="pozmenu">autorzy</li></a> -->
+</ul>
+
+<img id="homeimg" src='img/kot/study.png' alt="osiągnięcia" />
+
+<style>
+body {
+	background-color: rgb(189,228,235);
+}
+</style>

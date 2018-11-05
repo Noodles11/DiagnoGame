@@ -1,0 +1,21 @@
+<title>Ucz i baw się z Jacuchem!</title>
+
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" >
+<link rel="stylesheet" href="./styl.css" type="text/css" />
+<script type="text/javascript" src="./jquery-1.11.0.min.js"></script>
+<script type="text/javascript" src="./code.js"></script>
+
+<?php
+	require_once('connect.php');
+	//$baza = new baza('root','','diagnogra','localhost');
+	$baza = new baza('krusiatka','kognitywistyka','jkloska_cba_pl','mysql.cba.pl');
+	//include 'polecenia.php';
+	session_start();
+?>
+
+<audio id="sound_zle" preload="auto"> 
+	<source src="./error2.ogg" type="audio/ogg" />
+</audio>
+<audio id="sound_brawo" preload="auto">
+	<source src="./tada.ogg" type="audio/ogg" />
+</audio>
